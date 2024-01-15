@@ -1,0 +1,34 @@
+
+.container{
+    display: flex;
+}
+
+.buenoMalo{
+    width: 50px;
+}
+
+.icon{
+    margin-left: 3%;
+}
+
+.heart{
+    cursor: pointer;
+}
+
+
+.active{
+    width: 40px;
+}
+
+.card-img-top{
+    width: 150px;
+}
+
+.card-body{
+    max-width: 200px;
+}
+
+.child1{
+    display: flex;
+    max-width: 1200px;
+}

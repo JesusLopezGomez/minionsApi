@@ -1,0 +1,41 @@
+
+.container{
+    display: flex;
+    gap: 20px;
+}
+
+.buenoMalo{
+    width: 50px;
+}
+
+.icon{
+    margin-left: 3%;
+}
+
+.heart{
+    cursor: pointer;
+}
+
+.card-img-top{
+    width: 150px;
+    transition: all 0.5s ease-out;
+}
+
+.active{
+    width: 70px;
+    transition: all 0.5s ease-in;
+}
+
+.card-body{
+    max-width: 200px;
+}
+
+.child1{
+    display: flex;
+    max-width: 1200px;
+}
+
+.child2{
+    transition: all 0.5s ease-out;
+}
+
