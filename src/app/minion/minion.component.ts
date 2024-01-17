@@ -60,7 +60,9 @@ export class MinionComponent implements OnChanges{
       },
       error: () =>  this.error = true
     });*/
-    this.minionService.deleteMinion(id).subscribe();
+    this.minionService.deleteMinion(id).subscribe({
+      next: () => this.minions$ = this.minionService.getMinions()
+    });
 
   }
 }
