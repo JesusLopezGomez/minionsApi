@@ -9,7 +9,7 @@ import { Minion } from '../interfaces/Minion';
 export class MinionService {
   constructor(private http: HttpClient) { }
 
-  url : string = "http://localhost:3000/minions";
+  url : string = "http://localhost:3000/minions/";
 
   getMinions():Observable<Minion[]>{
     return this.http.get<Minion[]>(this.url);
@@ -20,7 +20,7 @@ export class MinionService {
   }
 
   getMinionsById(id:string):Observable<Minion>{
-    return this.http.get<Minion>(`${this.url}/${id}`)
+    return this.http.get<Minion>(`${this.url}${id}`)
   }
 
   addMinion(minion:Minion):Observable<Minion>{
@@ -28,11 +28,11 @@ export class MinionService {
   }
   
   editMinion(minion:Minion):Observable<Minion>{
-    return this.http.put<Minion>(`${this.url}/${minion.id}`,minion);
+    return this.http.put<Minion>(`${this.url}${minion.id}`,minion);
   }
 
   deleteMinion(id:string):Observable<Minion>{
-    return this.http.delete<Minion>(`${this.url}/${id}`);
+    return this.http.delete<Minion>(`${this.url}${id}`);
   }
   
 }

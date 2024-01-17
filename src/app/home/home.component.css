@@ -1,0 +1,13 @@
+.bienvenido{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(https://i.pinimg.com/originals/8f/8a/19/8f8a1970523b19b0d447d96f20d89942.jpg);
+    width: 100%;
+    height: 756px;
+}
+
+.title{
+    color: rgb(0, 26, 255);
+    text-shadow: 1px 2px 3px;
+}

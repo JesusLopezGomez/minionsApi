@@ -9,7 +9,6 @@ import { MinionComponent } from './minion/minion.component';
   standalone: true,
   imports: [CommonModule, RouterOutlet,MinionsNavBarComponent, MinionComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'minionsApi';

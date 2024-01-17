@@ -7,7 +7,6 @@ import { Router, RouterLink } from '@angular/router';
   standalone: true,
   imports: [FormsModule,RouterLink],
   templateUrl: './minions-nav-bar.component.html',
-  styleUrl: './minions-nav-bar.component.css'
 })
 export class MinionsNavBarComponent {
   termino:string = "";

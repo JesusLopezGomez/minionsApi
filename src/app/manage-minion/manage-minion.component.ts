@@ -9,7 +9,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [FormsModule,RouterLink],
   templateUrl: './manage-minion.component.html',
-  styleUrl: './manage-minion.component.css'
 })
 export class ManageMinionComponent implements OnInit{
 

@@ -1,26 +1,50 @@
-<div class="container">
-    <div class="child1">
-    @for (minion of minions; track $index) {
-        <div class="card" style="width: 20rem;">
-            <img class="card-img-top" src={{minion.img}} alt="Card image cap" [routerLink]="['infoId',minion.id]" routerLinkActive="active">
-            <div class="card-body">
-                <h5 class="card-title">{{minion.name}}</h5>
-                <p class="card-text">{{minion.bio}}</p>
-                <p class="card-text">Fecha de nacimiento: {{minion.birth}}</p>
-                <p class="card-text">{{minion.side}}</p>
-                @if (minion.side === "de los buenos") {
-                    <div class="divBueno"><img class="buenoMalo" src="../../assets/img/de los buenos.PNG" alt=""></div>
-                }@else {
-                    <div class="divBueno"><img class="buenoMalo" src="../../assets/img/de los malos.PNG" alt=""></div>
-                }
+@if ({minions: minions$|async, error: error$|async}; as data) {
+    @if (!data.error) {
+        <div class="container">
+            <div class="child1">
+            @for (minion of data.minions; track $index) {
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src={{minion.img}} alt="Card image cap" [routerLink]="['infoId',minion.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{minion.name}}</h5>
+                        @if (name) {
+                            <p class="card-text">{{minion.bio}}</p>
+                            <p class="card-text">Fecha de nacimiento: {{minion.birth}}</p>
+                            <p class="card-text">{{minion.side}}</p>
+                            @if (minion.side === "de los buenos") {
+                                <div class="divBueno"><img class="buenoMalo" src="../../assets/img/de los buenos.PNG" alt=""></div>
+                            }@else {
+                                <div class="divBueno"><img class="buenoMalo" src="../../assets/img/de los malos.PNG" alt=""></div>
+                            }
+                        }
+                    </div>
+                    @if (!name) {
+                        <button [routerLink]="['/minions',minion.name]" class="btn btn-dark"> Info</button>
+                    }
+                    <button [routerLink]="['/editMinion',minion.id]" class="btn btn-warning">Edit</button>
+                    <button class="btn btn-danger" (click)="deleteMinion(minion.id)">Delete</button>
+                </div>
+            }
             </div>
-            <button [routerLink]="['/minions',minion.name]" class="btn btn-dark"> Info</button>
-            <button [routerLink]="['/editMinion',minion.id]" class="btn btn-warning">Edit</button>
-            <button class="btn btn-danger" (click)="deleteMinion(minion.id)">Delete</button>
+            <div>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    }@else {
+        <p>{{data.error.message}}</p>
+        <div class="container">
+            <div class="child1">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src="../../assets/img/errorMinion.jpeg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Error</h5>
+                            <p class="card-text">No se ha podido recuperar los minions</p>
+                            <div class="divBueno"><img class="buenoMalo" src="../../assets/img/de los malos.PNG" alt=""></div>
+                    </div>
+                </div>
+            </div>
         </div>
     }
-    </div>
-    <div>
-        <router-outlet></router-outlet>
-    </div>
-</div>
+
+}
+
