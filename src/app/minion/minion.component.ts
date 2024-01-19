@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input,OnInit } from '@angular/core';
 import { Minion } from '../interfaces/Minion';
 import { MinionService } from '../services/minion.service';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AsyncPipe, CommonModule, JsonPipe } from '@angular/common';
 import { MinionIdComponent } from '../minion-id/minion-id.component';
 import { ManageMinionComponent } from '../manage-minion/manage-minion.component';
@@ -14,14 +14,14 @@ import { catchError, ignoreElements, min, Observable, of } from 'rxjs';
   templateUrl: './minion.component.html',
   styleUrl: './minion.component.css'
 })
-export class MinionComponent implements OnChanges{
+export class MinionComponent implements OnInit{
   minions$ !: Observable<Minion[]>;
   error$!: Observable<any>;
-  constructor(private minionService:MinionService){}
+  constructor(private minionService:MinionService,private route:ActivatedRoute){}
   
   @Input() name:string = "";
   
-  ngOnChanges(): void {
+  ngOnInit(): void {
     if(this.name){
       /*this.minionService.getMinionsByName(this.name).subscribe({
         next: (minions) => {
@@ -30,11 +30,17 @@ export class MinionComponent implements OnChanges{
         },
         error: () =>  this.error = true
       })*/
-      this.minions$ = this.minionService.getMinionsByName(this.name)
-      this.error$ = this.minions$.pipe(
-        ignoreElements(),
-        catchError(err => of(err))
-      );
+      this.route.params.subscribe({
+        next: (params) => {
+          this.name = params['name'];
+          this.minions$ = this.minionService.getMinionsByName(this.name);
+          this.error$ = this.minions$.pipe(
+            ignoreElements(),
+            catchError(err => of(err))
+          )
+        }
+      })
+      
     }else{
       /*this.minionService.getMinions().subscribe({
         next: (minions) => {
@@ -53,13 +59,6 @@ export class MinionComponent implements OnChanges{
   }
 
   deleteMinion(id:string){
-    /*this.minionService.deleteMinion(id).subscribe({
-      next: () =>{
-        this.minions = Observable.apply(this.minions.filter((minionF) => minionF.id !== id));
-        this.error = false;
-      },
-      error: () =>  this.error = true
-    });*/
     this.minionService.deleteMinion(id).subscribe({
       next: () => this.minions$ = this.minionService.getMinions()
     });

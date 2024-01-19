@@ -34,11 +34,16 @@ export class ManageMinionComponent implements OnInit{
   saveOrEdit(){
     if(this.id){
       this.minionService.editMinion(this.minion).subscribe({
-        next: () => this.edit = true
+        next: () => {
+          this.edit = true
+        }
       });
     }else{
       this.minionService.addMinion(this.minion).subscribe({
-        next: () => this.add = true
+        next: () =>{
+          this.add = true
+          this.minion = {id:'',name:'',bio:'',birth:'',img:'',side:''}
+        } 
       });
     }
   }
